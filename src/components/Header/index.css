@@ -1,7 +1,15 @@
 .nav-header {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid rgb(243, 243, 243);
+  border-bottom: 4px solid rgb(243, 243, 243);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  height: 20vh;
+  /* height: 20vh; */
+  background-color: #ffffff;
 }
 
 @media screen and (max-width: 767px) {
@@ -36,6 +44,9 @@
 @media screen and (min-width: 768px) {
   .nav-bar-mobile-logo-container {
     display: none;
+  }
+  .nav-header {
+    height: 12vh;
   }
 }
 

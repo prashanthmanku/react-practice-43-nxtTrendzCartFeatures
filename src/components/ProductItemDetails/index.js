@@ -78,6 +78,38 @@ class ProductItemDetails extends Component {
     }
   }
 
+  getSimilarProductData = async id => {
+    this.setState({
+      apiStatus: apiStatusConstants.inProgress,
+    })
+    const jwtToken = Cookies.get('jwt_token')
+    const apiUrl = `https://apis.ccbp.in/products/${id}`
+    const options = {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+      method: 'GET',
+    }
+    const response = await fetch(apiUrl, options)
+    if (response.ok) {
+      const fetchedData = await response.json()
+      const updatedData = this.getFormattedData(fetchedData)
+      const updatedSimilarProductsData = fetchedData.similar_products.map(
+        eachSimilarProduct => this.getFormattedData(eachSimilarProduct),
+      )
+      this.setState({
+        productData: updatedData,
+        similarProductsData: updatedSimilarProductsData,
+        apiStatus: apiStatusConstants.success,
+      })
+    }
+    if (response.status === 404) {
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
+      })
+    }
+  }
+
   renderLoadingView = () => (
     <div className="products-details-loader-container" data-testid="loader">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
@@ -192,6 +224,7 @@ class ProductItemDetails extends Component {
                 <SimilarProductItem
                   productDetails={eachSimilarProduct}
                   key={eachSimilarProduct.id}
+                  getSimilarProductData={this.getSimilarProductData}
                 />
               ))}
             </ul>

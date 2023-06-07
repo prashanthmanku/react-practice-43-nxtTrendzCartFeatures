@@ -2,11 +2,13 @@
   display: flex;
   justify-content: center;
   min-height: 75vh;
+  margin-top: 20vh;
 }
 
 @media screen and (min-width: 768px) {
   .cart-container {
     min-height: 90vh;
+    margin-top: 12vh;
   }
 }
 

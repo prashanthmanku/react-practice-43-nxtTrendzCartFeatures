@@ -150,3 +150,6 @@
     display: none;
   }
 }
+.cart-nav-link {
+  text-decoration: none;
+}

@@ -1,6 +1,8 @@
 import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
 import {AiFillCloseCircle} from 'react-icons/ai'
 
+import {Link} from 'react-router-dom'
+
 import CartContext from '../../context/CartContext'
 
 import './index.css'
@@ -31,12 +33,17 @@ const CartItem = props => (
 
       return (
         <li className="cart-item">
-          <img className="cart-product-image" src={imageUrl} alt={title} />
+          <Link to={`/products/${id}`}>
+            <img className="cart-product-image" src={imageUrl} alt={title} />
+          </Link>
           <div className="cart-item-details-container">
-            <div className="cart-product-title-brand-container">
-              <p className="cart-product-title">{title}</p>
-              <p className="cart-product-brand">by {brand}</p>
-            </div>
+            <Link to={`/products/${id}`} className="cart-nav-link">
+              <div className="cart-product-title-brand-container">
+                <p className="cart-product-title">{title}</p>
+                <p className="cart-product-brand">by {brand}</p>
+              </div>
+            </Link>
+
             <div className="cart-quantity-container">
               <button
                 type="button"

@@ -4,4 +4,10 @@
   margin: auto;
   width: 90%;
   max-width: 1110px;
+  margin-top: 20vh;
+}
+@media screen and (min-width: 768px) {
+  .product-sections {
+    margin-top: 12vh;
+  }
 }

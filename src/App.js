@@ -1,5 +1,5 @@
-import {Component} from 'react'
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Component, useEffect} from 'react'
+import {Route, Switch, Redirect, useHistory} from 'react-router-dom'
 
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
@@ -11,6 +11,22 @@ import ProtectedRoute from './components/ProtectedRoute'
 import CartContext from './context/CartContext'
 
 import './App.css'
+
+function ScrollToTop() {
+  const history = useHistory()
+
+  useEffect(() => {
+    const unlisten = history.listen(() => {
+      window.scrollTo(0, 0)
+    })
+
+    return () => {
+      unlisten()
+    }
+  }, [history])
+
+  return null
+}
 
 class App extends Component {
   state = {
@@ -94,19 +110,22 @@ class App extends Component {
           decrementCartItemQuantity: this.decrementCartItemQuantity,
         }}
       >
-        <Switch>
-          <Route exact path="/login" component={LoginForm} />
-          <ProtectedRoute exact path="/" component={Home} />
-          <ProtectedRoute exact path="/products" component={Products} />
-          <ProtectedRoute
-            exact
-            path="/products/:id"
-            component={ProductItemDetails}
-          />
-          <ProtectedRoute exact path="/cart" component={Cart} />
-          <Route path="/not-found" component={NotFound} />
-          <Redirect to="not-found" />
-        </Switch>
+        <div>
+          <ScrollToTop />
+          <Switch>
+            <Route exact path="/login" component={LoginForm} />
+            <ProtectedRoute exact path="/" component={Home} />
+            <ProtectedRoute exact path="/products" component={Products} />
+            <ProtectedRoute
+              exact
+              path="/products/:id"
+              component={ProductItemDetails}
+            />
+            <ProtectedRoute exact path="/cart" component={Cart} />
+            <Route path="/not-found" component={NotFound} />
+            <Redirect to="not-found" />
+          </Switch>
+        </div>
       </CartContext.Provider>
     )
   }

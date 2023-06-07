@@ -1,12 +1,15 @@
 .product-item-details-container {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  /* margin-top: 32px; */
+  min-height: 100vh;
+  margin-top: 27vh;
 }
 
 @media screen and (min-width: 768px) {
   .product-item-details-container {
     margin-top: 64px;
+    margin-top: 17vh;
   }
 }
 
@@ -25,6 +28,7 @@
 .product-details-container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
 @media screen and (min-width: 768px) {
