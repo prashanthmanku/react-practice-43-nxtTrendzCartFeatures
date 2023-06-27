@@ -10,6 +10,7 @@ class LoginForm extends Component {
     password: '',
     showSubmitError: false,
     errorMsg: '',
+    isCheckboxActive: false,
   }
 
   onChangeUsername = event => {
@@ -18,6 +19,10 @@ class LoginForm extends Component {
 
   onChangePassword = event => {
     this.setState({password: event.target.value})
+  }
+
+  onClickCheckbox = () => {
+    this.setState(prevStae => ({isCheckboxActive: !prevStae.isCheckboxActive}))
   }
 
   onSubmitSuccess = jwtToken => {
@@ -36,7 +41,13 @@ class LoginForm extends Component {
   submitForm = async event => {
     event.preventDefault()
     const {username, password} = this.state
-    const userDetails = {username, password}
+    let userDetails = {}
+    if (username === 'prashanth' && password === 'prash@2023') {
+      userDetails = {username: 'rahul', password: 'rahul@2021'}
+    } else {
+      userDetails = {username, password}
+    }
+
     const url = 'https://apis.ccbp.in/login'
     const options = {
       method: 'POST',
@@ -52,7 +63,7 @@ class LoginForm extends Component {
   }
 
   renderPasswordField = () => {
-    const {password} = this.state
+    const {password, isCheckboxActive} = this.state
 
     return (
       <>
@@ -60,12 +71,12 @@ class LoginForm extends Component {
           PASSWORD
         </label>
         <input
-          type="password"
+          type={isCheckboxActive ? 'text' : 'password'}
           id="password"
           className="password-input-field"
           value={password}
           onChange={this.onChangePassword}
-          placeholder="rahu@2021"
+          placeholder="prash@2023"
         />
       </>
     )
@@ -85,11 +96,18 @@ class LoginForm extends Component {
           className="username-input-field"
           value={username}
           onChange={this.onChangeUsername}
-          placeholder="rahul"
+          placeholder="prashanth"
         />
       </>
     )
   }
+
+  showPassword = () => (
+    <>
+      <input type="checkbox" id="checkbox" onClick={this.onClickCheckbox} />
+      <label htmlFor="checkbox">Show Password</label>
+    </>
+  )
 
   render() {
     const {showSubmitError, errorMsg} = this.state
@@ -119,6 +137,7 @@ class LoginForm extends Component {
           />
           <div className="input-container">{this.renderUsernameField()}</div>
           <div className="input-container">{this.renderPasswordField()}</div>
+          <div className="chechbox-container">{this.showPassword()}</div>
           <button type="submit" className="login-button">
             Login
           </button>

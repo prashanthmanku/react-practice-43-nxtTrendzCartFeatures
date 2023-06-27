@@ -96,6 +96,7 @@
   margin-top: 5px;
   padding: 8px 16px 8px 16px;
   outline: none;
+  color: black;
 }
 
 .password-input-field {
@@ -108,6 +109,7 @@
   margin-top: 5px;
   padding: 8px 16px 8px 16px;
   outline: none;
+  color: black;
 }
 
 .login-button {
@@ -135,4 +137,12 @@
   font-size: 12px;
   line-height: 16px;
   color: #ff0b37;
+}
+.chechbox-container {
+  display: flex;
+  align-self: flex-start;
+  margin-top: 10px;
+}
+#checkbox {
+  margin-right: 15px;
 }
